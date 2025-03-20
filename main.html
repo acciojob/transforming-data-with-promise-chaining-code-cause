@@ -1,53 +1,56 @@
 <!DOCTYPE html>
-
 <html>
   <head>
     <!-- <link rel="stylesheet" href="styles.css" /> -->
   </head>
 
   <body>
-    <!-- do not change this code -->
+    <!-- Do not change this code -->
     <input type="number" id="ip" />
     <button id="btn">Start</button>
     <div id="output"></div>
+
     <script>
-function check(delay, number) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(number);
-    }, delay);
-  });
-}
+      function check(delay, number) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(number);
+          }, delay);
+        });
+      }
 
-document.getElementById("btn").addEventListener("click", () => {
-  let number = parseFloat(document.getElementById("ip").value); 
-  let outputDiv = document.getElementById("output");
-  // outputDiv.innerText = "Processing..."; 
+      document.getElementById("btn").addEventListener("click", () => {
+        let number = parseFloat(document.getElementById("ip").value); 
+        let outputDiv = document.getElementById("output");
 
-  check(2000, number)
-    .then((res) => {
-      outputDiv.innerText = Result: ${res};
-      return check(2000, res * 2); 
-    })
-    .then((res) => {
-		
-      outputDiv.innerText  = Result: ${res};
-      return check(1000, res - 3); 
-    })
-    .then((res) => {
-      outputDiv.innerText = Result: ${res};
-      return check(1000, res / 2); 
-    })
-    .then((res) => {
-      outputDiv.innerText = Result: ${res};
-      return check(1000, res + 10); 
-    })
-    .then((res) => {
-      outputDiv.innerText = Final Result: ${res};
-    });
-});
+        // Validate input
+        if (isNaN(number)) {
+          outputDiv.innerText = "Please enter a valid number.";
+          return;
+        }
 
-    
+        // Start promise chain
+        check(2000, number)
+          .then((res) => {
+            outputDiv.innerText = `Result: ${res}`;
+            return check(2000, res * 2);
+          })
+          .then((res) => {
+            outputDiv.innerText = `Result: ${res}`;
+            return check(1000, res - 3);
+          })
+          .then((res) => {
+            outputDiv.innerText = `Result: ${res}`;
+            return check(1000, res / 2);
+          })
+          .then((res) => {
+            outputDiv.innerText = `Result: ${res}`;
+            return check(1000, res + 10);
+          })
+          .then((res) => {
+            outputDiv.innerText = `Final Result: ${res}`;
+          });
+      });
     </script>
   </body>
 </html>
